@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetMatch - Pet Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="STYLESNEW.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <!-- Navbar content here -->
+    </nav>
+
+    <h1 style="text-align: center;">Pet Profile</h1>
+    <div id="formContainer">
+        <!-- Pet Profile Details -->
+        <label for="petName">Pet Name:</label>
+        <input type="text" name="petName" id="petName">
+        <br>
+
+        <label for="petAge">Pet Age:</label>
+        <input type="text" name="petAge" id="petAge">
+        <br>
+
+        <label for="petBreed">Pet Breed:</label>
+        <input type="text" name="petBreed" id="petBreed">
+        <br>
+
+        <label for="petPersonality">Pet Personality:</label>
+        <input type="text" name="petPersonality" id="petPersonality">
+        <br>
+
+        <label for="petImageUrl">Image URL:</label>
+        <input type="text" name="petImageUrl" id="petImageUrl">
+        <br>
+
+        <!-- Button for Submitting Pet Profile -->
+        <button onclick="submitPetProfile()">Submit Pet Profile</button>
+    </div>
+
+    <script>
+        function submitPetProfile() {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            let petName = document.getElementById('petName').value;
+            let petAge = document.getElementById('petAge').value;
+            let petBreed = document.getElementById('petBreed').value;
+            let petPersonality = document.getElementById('petPersonality').value;
+            let petImageUrl = document.getElementById('petImageUrl').value;
+
+            var raw = JSON.stringify({
+                "name": petName,
+                "age": petAge,
+                "breed": petBreed,
+                "personality": petPersonality,
+                "imageUrl": petImageUrl
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/addPetProfile", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    alert(result);
+                })
+                .catch(error => console.log('error', error));
+        }
+    </script>
+
+    <footer class="footer">
+        <!-- Footer content here -->
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
